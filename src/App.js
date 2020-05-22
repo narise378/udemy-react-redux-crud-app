@@ -1,26 +1,26 @@
 import React from 'react';
 
-// class App extends Component { クラスコンポーネントはインポートに{ Component }を記述する
-//  render() {
-//   return (
-//     //divで囲う必要があるが、不要なdivを排除するためには React.Fragment がでいける
-//     <React.Fragment>
-//       <label htmlFor="bar">bar </label>
-//       <input type="text" onChange={() => {console.log("Click!!")}}/>
-//     </React.Fragment>
-//   )
-//  }
-// }
-
 const App = () => {
+  const profiles = [
+    {name: "Nari", age: 32},
+    {name: "Sae", age: 25},
+    {name: "Nan"}
+  ]
   return (
   <div>
-    関数コンポーネント
-    <Cat />
+    {
+      profiles.map((profiles, index) => {
+        return <User name={profiles.name} age={profiles.age} key={index}/>
+      })
+    }
   </div>
   )
 }
-const Cat = () => {
-  return <div>にゃー</div>
+const User = (props) => {
+  return <div>Hi, I am {props.name}, and {props.age} years old !</div>
+}
+
+User.defaultProps = {
+  age: 1
 }
 export default App;
