@@ -1,29 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
 
-const App = () => {
-  const profiles = [ //配列でオブジェクトを作る
-    {name: "Nari", age: 32},
-    {name: "Sae", age: 25},
-    {name: "Depi", age: 32},
-    {naem: "Non", age: 1}
-  ]
-  return (
-  <div>
-    {
-      profiles.map((profiles, index) => { //引数にprofilesのデータを持たせて、index番号を用いてkeyとして運用しユニークにする
-        return <User name={profiles.name} age={profiles.age} key={index}/>
-      })
-    }
-  </div>
-  )
-}
-const User = (props) => { //propsにより親コンポーネントからプロパティを受け取れる
-  return <div>Hi, I am {props.name}, and {props.age} years old !</div>
+const App = () => (<Counter></Counter>)
+
+class Counter extends Component {
+  constructor (props) { //コンストラクターはコンポーネントの初期化（インスタンス）の時にコールされる処理
+    super(props)
+    this.state = { count: 0 } //stateにcountをセットする
+  }
+
+  handlePlusButton = () => {
+    //状態を変える際は必ずsetStateを仕込む
+    this.setState({ count: this.state.count + 1 }) //setStateが実行されるとrenderが再コールされる
+  }
+
+  handleMinusButton = () => {
+    this.setState({ count: this.state.count - 1 })
+  }
+
+  render () {
+    return (
+      <React.Fragment>
+        <div>count: {this.state.count}</div>
+        <button onClick={this.handlePlusButton}>+1</button>
+        <button onClick={this.handleMinusButton}>-1</button>
+      </React.Fragment>
+    )
+  }
 }
 
-User.propTypes = { //型を定義、コンポーネント設計に置いて、ブレない型を指定する事が大規模になるにつれ大事
-  name: PropTypes.string,
-  age: PropTypes.number.isRequired //ageというデーターが必須になる
-}
 export default App;
