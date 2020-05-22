@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const App = () => {
   const profiles = [ //配列でオブジェクトを作る
     {name: "Nari", age: 32},
     {name: "Sae", age: 25},
-    {name: "Nan"}
+    {name: "Depi", age: 32},
+    {naem: "Non", age: 1}
   ]
   return (
   <div>
@@ -20,7 +22,8 @@ const User = (props) => { //propsにより親コンポーネントからプロ�
   return <div>Hi, I am {props.name}, and {props.age} years old !</div>
 }
 
-User.defaultProps = { //プロパティに値が指定されていないオブジェクトがあればデフォルト値をいれれる
-  age: 1
+User.propTypes = { //型を定義、コンポーネント設計に置いて、ブレない型を指定する事が大規模になるにつれ大事
+  name: PropTypes.string,
+  age: PropTypes.number.isRequired //ageというデーターが必須になる
 }
 export default App;
