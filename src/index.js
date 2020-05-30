@@ -3,18 +3,24 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux' // ミドルウェアを適応するためにインポートする
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk' //reduxのアクションクリエーターを非同期処理するために、ミドルウェアになる
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './index.css';
 import reducer from './reducers'
-
 import EventsIndex from './components/events_index';
+import EventsNew from './components/events_new';
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(reducer, applyMiddleware(thunk))// 第二引数にthunkに渡し、Storeに組み込む
 
 ReactDOM.render(
   <Provider store={store}>
-    <EventsIndex />
+    <BrowserRouter>
+     <Switch>
+       <Route exact path="/events/new" component={EventsNew} />
+       <Route exact path="/" component={EventsIndex} />
+     </Switch>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
