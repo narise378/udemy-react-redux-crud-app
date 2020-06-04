@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk' //reduxのアクションクリエーターを非同期処理するために、ミドルウェアになる
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension' //デバックツールRuduxDevTools
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider' //マテリアルUI
 
 import './index.css';
 import reducer from './reducers'
@@ -19,6 +20,7 @@ composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk)
 const store = createStore(reducer, enhancer)// 第二引数にthunkに渡し、Storeに組み込む
 
 ReactDOM.render(
+  <MuiThemeProvider>
   <Provider store={store}>
     <BrowserRouter>
      <Switch>
@@ -28,7 +30,8 @@ ReactDOM.render(
        <Route exact path="/events" component={EventsIndex} />
      </Switch>
     </BrowserRouter>
-  </Provider>,
+  </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
 
